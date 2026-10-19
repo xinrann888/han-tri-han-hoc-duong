@@ -1,0 +1,786 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5efff">
+  <title>HSK1 | Hân Tri Hán Học Đường</title>
+  <style>
+    :root {
+      --purple: #8055b8;
+      --purple-dark: #60408f;
+      --lavender: #eee5fc;
+      --pink: #f9e9f2;
+      --cream: #fffdf9;
+      --ink: #352b43;
+      --muted: #81778e;
+      --border: #e9dff3;
+      --green: #e4f5e9;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #faf7ff;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    button, input { font: inherit; }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      transition: transform .15s, background .15s;
+    }
+
+    button:active { transform: scale(.98); }
+
+    .topbar {
+      background: rgba(255,255,255,.92);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--purple-dark);
+    }
+
+    .logo {
+      width: 43px;
+      height: 43px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: var(--lavender);
+      font-size: 23px;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .level {
+      border-radius: 999px;
+      padding: 7px 15px;
+      background: var(--lavender);
+      color: var(--purple-dark);
+      font-weight: 800;
+    }
+
+    main {
+      width: min(1060px, 92%);
+      margin: 28px auto 60px;
+    }
+
+    .hero {
+      background: linear-gradient(125deg, #eee3ff, #fff0f6 70%, #fffaf0);
+      padding: clamp(24px, 5vw, 48px);
+      border-radius: 28px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 20px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      color: var(--purple);
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 49px);
+      line-height: 1.15;
+      margin: 12px 0;
+      letter-spacing: -1.3px;
+    }
+
+    .hero p { color: #71647e; max-width: 480px; }
+
+    .hero-art {
+      text-align: center;
+      font-size: clamp(75px, 12vw, 120px);
+      filter: drop-shadow(0 8px 10px #bda6d455);
+    }
+
+    .hero-art small {
+      display: block;
+      font-size: 13px;
+      color: var(--purple-dark);
+      font-weight: 700;
+    }
+
+    .progress-card {
+      margin-top: 20px;
+      padding: 20px 23px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+    }
+
+    .progress-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .track {
+      background: #eee8f4;
+      border-radius: 99px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #a68ad9, #8055b8);
+      border-radius: inherit;
+      transition: width .3s;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .stat {
+      background: #faf7ff;
+      padding: 12px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .stat strong { display: block; font-size: 23px; color: var(--purple-dark); }
+    .stat span { font-size: 12px; color: var(--muted); }
+
+    .section { margin-top: 34px; scroll-margin-top: 90px; }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    h2 { font-size: 23px; margin: 0; }
+    .subtitle { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 3px 1px 10px;
+      margin: 22px 0;
+    }
+
+    .nav button, .secondary {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--purple-dark);
+      padding: 10px 15px;
+      border-radius: 13px;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .nav button:hover, .secondary:hover { background: var(--lavender); }
+
+    .primary {
+      background: var(--purple);
+      color: white;
+      padding: 11px 18px;
+      border-radius: 13px;
+      font-weight: 750;
+    }
+
+    .primary:hover { background: var(--purple-dark); }
+
+    .vocab-tools {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      outline-color: var(--purple);
+      background: white;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .word-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      padding: 17px 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    .word-card .hanzi { font-size: 32px; font-weight: 750; color: var(--purple-dark); }
+    .word-card .pinyin { color: var(--purple); font-size: 14px; }
+    .word-card .meaning { font-size: 13px; margin-top: 3px; }
+    .word-card .speak {
+      margin-top: 10px;
+      border-radius: 10px;
+      padding: 5px 10px;
+      background: var(--lavender);
+      color: var(--purple-dark);
+      font-size: 12px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 23px;
+      padding: clamp(18px, 4vw, 28px);
+    }
+
+    .flash-wrap { max-width: 510px; margin: auto; text-align: center; }
+
+    .flashcard {
+      width: 100%;
+      min-height: 245px;
+      background: linear-gradient(145deg, #f0e7ff, #fff0f6);
+      border: 1px solid #e6d8f8;
+      border-radius: 24px;
+      color: var(--purple-dark);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flashcard .big { font-size: 57px; font-weight: 800; line-height: 1.4; }
+    .flashcard .hint { color: #8875a0; font-size: 13px; }
+    .flash-controls { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+
+    .quiz-question { font-size: 21px; font-weight: 750; margin: 8px 0 20px; }
+    .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .option {
+      text-align: left;
+      padding: 13px 15px;
+      background: #fbf9ff;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      color: var(--ink);
+    }
+
+    .option:hover { border-color: var(--purple); }
+    .option.correct { background: var(--green); border-color: #8ac69b; }
+    .option.wrong { background: #fff0f0; border-color: #e9aaaa; }
+
+    .feedback { min-height: 30px; margin-top: 12px; font-weight: 700; }
+    .canvas-wrap { overflow: hidden; border: 1px dashed #c6addf; border-radius: 16px; background: #fffdfd; }
+    canvas { display: block; width: 100%; height: 230px; touch-action: none; cursor: crosshair; }
+    .draw-tools { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 12px; align-items: center; }
+    .draw-tools label { color: var(--muted); font-size: 13px; }
+
+    .lesson-card {
+      background: linear-gradient(120deg, #fff, #f5efff);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .lesson-card strong { color: var(--purple-dark); }
+    .coming { color: var(--muted); font-size: 13px; }
+
+    footer { text-align: center; padding: 25px 12px; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-art { font-size: 72px; }
+      .hero-art small { font-size: 12px; }
+      .vocab-grid { grid-template-columns: repeat(2, 1fr); }
+      .quiz-options { grid-template-columns: 1fr; }
+      .topbar { padding: 12px 4%; }
+      main { width: 92%; margin-top: 18px; }
+      .stats { gap: 7px; }
+      .stat { padding: 10px 4px; }
+      .stat strong { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">文</div>
+      <div>Hân Tri Hán Học Đường<small>Cùng bạn học tiếng Trung mỗi ngày</small></div>
+    </div>
+    <div class="level">HSK 1 · 2.0</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Chào mừng bạn đến học viện</div>
+        <h1>Học tiếng Trung<br>theo cách của bạn ✨</h1>
+        <p>Học từ mới, luyện viết chữ Hán và làm bài tập mỗi ngày. Từng bước nhỏ, tiến bộ mỗi ngày!</p>
+        <button class="primary" onclick="document.querySelector('#vocab').scrollIntoView({behavior:'smooth'})">Bắt đầu học →</button>
+      </div>
+      <div class="hero-art">📚🌸<small>你好！一起学习吧！</small></div>
+    </section>
+
+    <section class="progress-card">
+      <div class="progress-heading">
+        <span>🌷 Hành trình học tập</span>
+        <span id="progressText">0% hoàn thành</span>
+      </div>
+      <div class="track"><div class="fill" id="progressFill"></div></div>
+      <div class="stats">
+        <div class="stat"><strong id="learnedCount">0</strong><span>Từ đã đánh dấu học</span></div>
+        <div class="stat"><strong id="quizBest">—</strong><span>Điểm bài tập tốt nhất</span></div>
+        <div class="stat"><strong>15</strong><span>Bài trong giáo trình</span></div>
+      </div>
+    </section>
+
+    <nav class="nav" aria-label="Điều hướng">
+      <button onclick="go('vocab')">📖 Từ vựng</button>
+      <button onclick="go('flash')">🃏 Flashcard</button>
+      <button onclick="go('quiz')">✏️ Bài tập</button>
+      <button onclick="go('write')">🖌️ Luyện viết</button>
+      <button onclick="go('lessons')">🌸 Các bài học</button>
+    </nav>
+
+    <section class="section" id="vocab">
+      <div class="section-heading">
+        <div><h2>📖 Góc từ vựng</h2><p class="subtitle">Tìm từ, nghe phát âm nếu trình duyệt hỗ trợ và đánh dấu đã học.</p></div>
+      </div>
+      <div class="vocab-tools">
+        <input type="search" id="searchWord" placeholder="Tìm chữ Hán, pinyin hoặc nghĩa tiếng Việt..." aria-label="Tìm từ vựng">
+      </div>
+      <div class="vocab-grid" id="vocabGrid"></div>
+    </section>
+
+    <section class="section" id="flash">
+      <div class="section-heading">
+        <div><h2>🃏 Flashcard</h2><p class="subtitle">Thử nhớ nghĩa trước khi lật thẻ nhé!</p></div>
+      </div>
+      <div class="panel flash-wrap">
+        <div id="flashCounter" class="subtitle">Thẻ 1</div>
+        <button class="flashcard" id="flashCard" onclick="flipCard()" aria-label="Lật flashcard">
+          <span class="hint">Bấm để lật thẻ</span>
+          <span class="big" id="flashMain">你好</span>
+          <span id="flashSub" class="hint">Nghĩa tiếng Việt là gì?</span>
+        </button>
+        <div class="flash-controls">
+          <button class="secondary" onclick="moveFlash(-1)">← Thẻ trước</button>
+          <button class="primary" onclick="flipCard()">Lật thẻ</button>
+          <button class="secondary" onclick="moveFlash(1)">Thẻ tiếp →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="section-heading">
+        <div><h2>✏️ Thử thách HSK1</h2><p class="subtitle">Chọn đáp án đúng. Đây là bộ câu hỏi minh họa ban đầu.</p></div>
+      </div>
+      <div class="panel">
+        <div id="quizCounter" class="subtitle">Câu 1 / 5</div>
+        <div id="quizQuestion" class="quiz-question"></div>
+        <div id="quizOptions" class="quiz-options"></div>
+        <div id="quizFeedback" class="feedback" aria-live="polite"></div>
+        <button class="primary" id="nextQuestion" onclick="nextQuiz()" style="display:none">Câu tiếp theo →</button>
+        <div id="quizResult" style="display:none;text-align:center;padding:15px">
+          <div style="font-size:42px">🎉</div>
+          <h3 id="resultTitle">Hoàn thành!</h3>
+          <p id="resultText"></p>
+          <button class="primary" onclick="startQuiz()">Làm lại bài tập</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="write">
+      <div class="section-heading">
+        <div><h2>🖌️ Góc luyện viết</h2><p class="subtitle">Dùng chuột, bút cảm ứng hoặc ngón tay để luyện viết.</p></div>
+      </div>
+      <div class="panel">
+        <p>Hôm nay luyện chữ: <strong id="practiceCharacter" style="font-size:27px;color:var(--purple-dark)">你</strong></p>
+        <div class="canvas-wrap"><canvas id="writingCanvas" aria-label="Vùng luyện viết chữ Hán"></canvas></div>
+        <div class="draw-tools">
+          <button class="secondary" onclick="clearCanvas()">Xóa nét viết</button>
+          <button class="secondary" onclick="nextCharacter()">Đổi chữ</button>
+          <label for="penColor">Màu bút</label>
+          <input type="color" id="penColor" value="#7650ad" aria-label="Chọn màu bút">
+        </div>
+        <p class="subtitle">Lưu ý: vùng này giúp luyện tay; chưa có hướng dẫn thứ tự nét viết tự động.</p>
+      </div>
+    </section>
+
+    <section class="section" id="lessons">
+      <div class="section-heading">
+        <div><h2>🌸 Lộ trình HSK1</h2><p class="subtitle">Khung học dự kiến theo giáo trình 《HSK标准教程1》 bản 2.0.</p></div>
+      </div>
+      <div class="lesson-card">
+        <strong>Đang xây dựng nội dung từng bài</strong>
+        <p class="coming">Website hiện mới có nội dung minh họa để kiểm tra chức năng. Danh sách 15 bài, từ vựng, ngữ pháp và bài tập chuẩn sách sẽ được bổ sung sau khi đối chiếu tài liệu.</p>
+        <div id="lessonList" class="vocab-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Hân Tri Hán Học Đường · 汉语学习，快乐成长 🌷</footer>
+
+  <script>
+    const words = [
+      {hanzi:"你",pinyin:"nǐ",meaning:"bạn"},
+      {hanzi:"好",pinyin:"hǎo",meaning:"tốt, khỏe"},
+      {hanzi:"你好",pinyin:"nǐ hǎo",meaning:"xin chào"},
+      {hanzi:"我",pinyin:"wǒ",meaning:"tôi"},
+      {hanzi:"他",pinyin:"tā",meaning:"anh ấy"},
+      {hanzi:"她",pinyin:"tā",meaning:"cô ấy"},
+      {hanzi:"是",pinyin:"shì",meaning:"là"},
+      {hanzi:"不",pinyin:"bù",meaning:"không"},
+      {hanzi:"吗",pinyin:"ma",meaning:"trợ từ nghi vấn"},
+      {hanzi:"谢谢",pinyin:"xièxie",meaning:"cảm ơn"},
+      {hanzi:"再见",pinyin:"zàijiàn",meaning:"tạm biệt"},
+      {hanzi:"老师",pinyin:"lǎoshī",meaning:"giáo viên"}
+    ];
+
+    const quizData = [
+      {q:"“你好” có nghĩa là gì?",options:["Cảm ơn","Xin chào","Tạm biệt","Xin lỗi"],answer:1},
+      {q:"“我” có nghĩa là gì?",options:["Bạn","Cô ấy","Tôi","Thầy giáo"],answer:2},
+      {q:"Chọn chữ có nghĩa là “không”.",options:["是","好","吗","不"],answer:3},
+      {q:"“谢谢” có nghĩa là gì?",options:["Cảm ơn","Tạm biệt","Xin chào","Tốt"],answer:0},
+      {q:"“老师” có nghĩa là gì?",options:["Học sinh","Bạn bè","Giáo viên","Bác sĩ"],answer:2}
+    ];
+
+    const lessonTitles = [
+      "你好","汉语不太难","谢谢","你叫什么名字","她是我的汉语老师",
+      "我学习汉语","你学习什么","你吃什么","苹果一斤多少钱",
+      "我换人民币","他住哪儿","明天天气怎么样","他在学做中国菜呢",
+      "她买了不少衣服","我是坐飞机来的"
+    ];
+
+    let learned = JSON.parse(localStorage.getItem("hantri_learned") || "[]");
+    let bestScore = Number(localStorage.getItem("hantri_best") || 0);
+    let flashIndex = 0;
+    let isFlipped = false;
+    let quizIndex = 0;
+    let quizScore = 0;
+    let answered = false;
+    let practiceIndex = 0;
+
+    function go(id) {
+      document.getElementById(id).scrollIntoView({behavior:"smooth"});
+    }
+
+    function renderWords(filter="") {
+      const grid = document.getElementById("vocabGrid");
+      const query = filter.trim().toLowerCase();
+      const filtered = words.filter(w =>
+        [w.hanzi,w.pinyin,w.meaning].some(v => v.toLowerCase().includes(query))
+      );
+      grid.innerHTML = "";
+      if (!filtered.length) {
+        grid.innerHTML = '<p>Không tìm thấy từ phù hợp.</p>';
+        return;
+      }
+
+      filtered.forEach(w => {
+        const index = words.indexOf(w);
+        const card = document.createElement("article");
+        card.className = "word-card";
+        const title = document.createElement("div");
+        title.className = "hanzi";
+        title.textContent = w.hanzi;
+        const pin = document.createElement("div");
+        pin.className = "pinyin";
+        pin.textContent = w.pinyin;
+        const meaning = document.createElement("div");
+        meaning.className = "meaning";
+        meaning.textContent = w.meaning;
+        const speak = document.createElement("button");
+        speak.className = "speak";
+        speak.textContent = "🔊 Nghe";
+        speak.onclick = () => speakWord(w.hanzi);
+        const learnedButton = document.createElement("button");
+        learnedButton.className = "speak";
+        learnedButton.style.marginLeft = "4px";
+        learnedButton.textContent = learned.includes(index) ? "✓ Đã học" : "+ Đã học";
+        learnedButton.onclick = () => toggleLearned(index);
+        card.append(title,pin,meaning,speak,learnedButton);
+        grid.appendChild(card);
+      });
+    }
+
+    function toggleLearned(index) {
+      learned = learned.includes(index)
+        ? learned.filter(i => i !== index)
+        : [...learned,index];
+      localStorage.setItem("hantri_learned", JSON.stringify(learned));
+      renderWords(document.getElementById("searchWord").value);
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const count = learned.length;
+      const pct = Math.round(count / words.length * 100);
+      document.getElementById("learnedCount").textContent = count;
+      document.getElementById("progressText").textContent = pct + "% hoàn thành";
+      document.getElementById("progressFill").style.width = pct + "%";
+      document.getElementById("quizBest").textContent = bestScore ? bestScore + "/5" : "—";
+    }
+
+    function speakWord(text) {
+      if (!("speechSynthesis" in window)) {
+        alert("Trình duyệt này chưa hỗ trợ phát âm tự động.");
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "zh-CN";
+      utterance.rate = 0.8;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function renderFlash() {
+      const w = words[flashIndex];
+      document.getElementById("flashCounter").textContent =
+        "Thẻ " + (flashIndex + 1) + " / " + words.length;
+      document.getElementById("flashMain").textContent = w.hanzi;
+      document.getElementById("flashSub").textContent = "Nghĩa tiếng Việt là gì?";
+      document.querySelector("#flashCard .hint").textContent = "Bấm để lật thẻ";
+      isFlipped = false;
+    }
+
+    function flipCard() {
+      const w = words[flashIndex];
+      isFlipped = !isFlipped;
+      document.getElementById("flashMain").textContent =
+        isFlipped ? w.meaning : w.hanzi;
+      document.getElementById("flashSub").textContent =
+        isFlipped ? w.pinyin : "Nghĩa tiếng Việt là gì?";
+      document.querySelector("#flashCard .hint").textContent =
+        isFlipped ? "Đáp án" : "Bấm để lật thẻ";
+    }
+
+    function moveFlash(direction) {
+      flashIndex = (flashIndex + direction + words.length) % words.length;
+      renderFlash();
+    }
+
+    function startQuiz() {
+      quizIndex = 0;
+      quizScore = 0;
+      answered = false;
+      document.getElementById("quizResult").style.display = "none";
+      document.getElementById("quizCounter").style.display = "block";
+      document.getElementById("quizQuestion").style.display = "block";
+      document.getElementById("quizOptions").style.display = "grid";
+      document.getElementById("quizFeedback").style.display = "block";
+      document.getElementById("nextQuestion").style.display = "none";
+      renderQuiz();
+    }
+
+    function renderQuiz() {
+      answered = false;
+      const item = quizData[quizIndex];
+      document.getElementById("quizCounter").textContent =
+        "Câu " + (quizIndex + 1) + " / " + quizData.length;
+      document.getElementById("quizQuestion").textContent = item.q;
+      document.getElementById("quizFeedback").textContent = "";
+      document.getElementById("nextQuestion").style.display = "none";
+      const options = document.getElementById("quizOptions");
+      options.innerHTML = "";
+
+      item.options.forEach((option,index) => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = option;
+        btn.onclick = () => chooseAnswer(index,btn);
+        options.appendChild(btn);
+      });
+    }
+
+    function chooseAnswer(index,button) {
+      if (answered) return;
+      answered = true;
+      const item = quizData[quizIndex];
+      const buttons = [...document.querySelectorAll(".option")];
+      buttons.forEach((btn,i) => {
+        btn.disabled = true;
+        if (i === item.answer) btn.classList.add("correct");
+      });
+
+      if (index === item.answer) {
+        quizScore++;
+        document.getElementById("quizFeedback").textContent = "🎉 Chính xác! Giỏi lắm!";
+        document.getElementById("quizFeedback").style.color = "#27844b";
+      } else {
+        button.classList.add("wrong");
+        document.getElementById("quizFeedback").textContent = "🌷 Chưa đúng rồi, đáp án màu xanh nhé!";
+        document.getElementById("quizFeedback").style.color = "#a14d65";
+      }
+      document.getElementById("nextQuestion").style.display = "inline-block";
+      document.getElementById("nextQuestion").textContent =
+        quizIndex === quizData.length - 1 ? "Xem kết quả →" : "Câu tiếp theo →";
+    }
+
+    function nextQuiz() {
+      if (!answered) return;
+      if (quizIndex < quizData.length - 1) {
+        quizIndex++;
+        renderQuiz();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      if (quizScore > bestScore) {
+        bestScore = quizScore;
+        localStorage.setItem("hantri_best", String(bestScore));
+      }
+      document.getElementById("quizCounter").style.display = "none";
+      document.getElementById("quizQuestion").style.display = "none";
+      document.getElementById("quizOptions").style.display = "none";
+      document.getElementById("quizFeedback").style.display = "none";
+      document.getElementById("nextQuestion").style.display = "none";
+      document.getElementById("quizResult").style.display = "block";
+      document.getElementById("resultTitle").textContent =
+        quizScore >= 4 ? "Xuất sắc! 🌸" : "Hoàn thành rồi! 💜";
+      document.getElementById("resultText").textContent =
+        "Mày đúng " + quizScore + "/" + quizData.length + " câu.";
+      updateProgress();
+    }
+
+    const canvas = document.getElementById("writingCanvas");
+    const ctx = canvas.getContext("2d");
+    let drawing = false;
+    let lastPoint = null;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const old = document.createElement("canvas");
+      old.width = canvas.width;
+      old.height = canvas.height;
+      old.getContext("2d").drawImage(canvas,0,0);
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(230 * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = document.getElementById("penColor").value;
+      ctx.fillStyle = "#eee4f7";
+      ctx.font = "120px serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(document.getElementById("practiceCharacter").textContent,rect.width/2,115);
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = document.getElementById("penColor").value;
+      if (old.width && old.height) {
+        ctx.drawImage(old,0,0,old.width,old.height,0,0,rect.width,230);
+      }
+    }
+
+    function pointFromEvent(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {x:e.clientX-rect.left,y:e.clientY-rect.top};
+    }
+
+    canvas.addEventListener("pointerdown", e => {
+      drawing = true;
+      lastPoint = pointFromEvent(e);
+      canvas.setPointerCapture(e.pointerId);
+    });
+
+    canvas.addEventListener("pointermove", e => {
+      if (!drawing) return;
+      const p = pointFromEvent(e);
+      ctx.beginPath();
+      ctx.moveTo(lastPoint.x,lastPoint.y);
+      ctx.lineTo(p.x,p.y);
+      ctx.strokeStyle = document.getElementById("penColor").value;
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      lastPoint = p;
+    });
+
+    function stopDrawing() { drawing = false; lastPoint = null; }
+    canvas.addEventListener("pointerup",stopDrawing);
+    canvas.addEventListener("pointercancel",stopDrawing);
+    canvas.addEventListener("pointerleave",stopDrawing);
+
+    function clearCanvas() { resizeCanvas(); }
+
+    function nextCharacter() {
+      practiceIndex = (practiceIndex + 1) % words.length;
+      document.getElementById("practiceCharacter").textContent = words[practiceIndex].hanzi;
+      resizeCanvas();
+    }
+
+    document.getElementById("penColor").addEventListener("input", e => {
+      ctx.strokeStyle = e.target.value;
+    });
+
+    document.getElementById("searchWord").addEventListener("input", e => renderWords(e.target.value));
+
+    lessonTitles.forEach((title,index) => {
+      const card = document.createElement("div");
+      card.className = "word-card";
+      const number = document.createElement("div");
+      number.className = "pinyin";
+      number.textContent = "Bài " + (index + 1);
+      const name = document.createElement("div");
+      name.style.fontWeight = "700";
+      name.style.marginTop = "6px";
+      name.textContent = title;
+      const status = document.createElement("div");
+      status.className = "coming";
+      status.textContent = "Sẽ bổ sung nội dung";
+      card.append(number,name,status);
+      document.getElementById("lessonList").appendChild(card);
+    });
+
+    renderWords();
+    renderFlash();
+    updateProgress();
+    startQuiz();
+    resizeCanvas();
+    window.addEventListener("resize",resizeCanvas);
+  </script>
+</body>
+</html>
